@@ -1,9 +1,44 @@
 <!DOCTYPE html>
 <html>
-<title>Play!</title>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+<script src="js/query.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+<title>Play!</title>
+</head>
 <body>
-<h1>Hello World</h1>
+    <div id="gamecontainer">
+        <canvas id="gamecanvas" width="640" height="480" class="gamelayer">
+        </canvas>
+        
+        <div id="scorescreen" class="gamelayer">
+            <img id="togglemusic" src="images/icons/sound.png">
+            <img src="images/icons/prev.png">
+            <span id="score">Score: 0</span>
+        </div>
+        
+        <div id="gamestartscreen" class="gamelayer">
+            <img src="images/icons/play.png" alt="Play Game"><br>
+            <img src="images/icons/settings.png" alt="Settings">
+        </div>
+        
+        <div id="levelselectscreen" class="gamelayer">
+        </div>
+        
+        <div id="endingscreen" class="gamelayer">
+            <div id="endingscreen" class="gamelayer">
+                <div id="endingmessage">The Level Is Over Message</p>
+                <p id="playecurrentlevel"><img src="images/icons/prev.png">Replay Current Level </p>
+                <p id="playnextlevel"><img src="images/icons/next.png">Play Next Level </p>
+                <p id="showLevelScreen"><img src="images/icons/return.png" > Return to Level Screen</p>
+                </div>
+            </div>
+        </div>
+    </div>
+         
+
 <p>I'm hosted with GitHub Pages.</p>
 </body>
 </html>
