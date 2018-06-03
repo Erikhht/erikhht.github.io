@@ -1,0 +1,20 @@
+{
+  "name": "Gato",
+  "assets": [
+    {
+      "id": "1",
+      "name": "o",
+      "type": "sprite"
+    },
+    {
+      "id": "2",
+      "name": "x",
+      "type": "sprite"
+    },
+    {
+      "id": "3",
+      "name": "Home-scene",
+      "type": "scene"
+    }
+  ]
+}

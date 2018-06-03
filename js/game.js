@@ -35,6 +35,11 @@ var game = {
         loader.init();
         mouse.init();
         
+        
+        //Load audio tracks
+        
+        //game.backgroundMusic = loader.loadSound('audio/left-right');
+        
         //hide all game layers and display start screen
         $('.gamelayer').hide();
         $('#gamestartscreen').show();
@@ -76,8 +81,9 @@ var game = {
         game.context.drawImage( game.currentLevel.foregroundImage,game.offsetLeft, 0, 640, 480, 0, 0, 640, 480);
         
         // Draw the slingshot
-        game.context.drawImage(game.slingshotImage, game.slingshotX - game.offsetLeft, game.slingshotY);
-        game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.offsetLeft, game.slingshotY);
+        //game.context.drawImage(game.slingshotImage, game.slingshotX - game.offsetLeft, game.slingshotY);
+        //game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.offsetLeft, game.slingshotY);
+        game.slideTetramino();
         
         if (!game.ended) {
             game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas);
@@ -145,7 +151,40 @@ var game = {
             //TODO:
             // Pan to wherever the hero currently is
         }
-    }
+    },
+    slideTetramino:function(){
+        
+        if (mouse.x>game.currentPosTetraminoX) {
+            game.moveToRight+=1;
+        } 
+        if (mouse.x<game.currentPosTetraminoX) {
+            game.moveToLeft+=1;
+        }
+        
+        //Erase tetramino
+        // Set fill color to white
+        //game.context.fillStyle = "red";
+        //game.context.fillRect (game.currentPosTetraminoX,game.currentPosTetraminoY,10,10);
+        
+        var stepY = ((game.currentPosTetraminoY % 30) === 0)
+        
+        game.currentPosTetraminoY+=1;
+        if (game.moveToRight>0 && stepY) {
+            game.currentPosTetraminoX+=10;
+            game.moveToRight = 0;
+            }
+        if (game.moveToLeft>0 && stepY) {
+            game.currentPosTetraminoX+=(-10);
+            game.moveToLeft = 0;
+        }
+        
+        //drawtetramino
+        game.context.fillStyle = "black";
+        game.context.fillRect (game.currentPosTetraminoX,game.currentPosTetraminoY,10,10);
+        if (game.currentPosTetraminoY > (game.canvas.height-10)){game.currentPosTetraminoY = 0; }
+    },
+    playLeftRight:function(){game.backgroundMusic.play();},
+    moveToRight:0,moveToLeft:0,currentPosTetraminoY:0,currentPosTetraminoX:100
 }
 
 var levels = {
@@ -203,7 +242,7 @@ var levels = {
 
 var loader = {
     loaded:true,
-    loadedCount:0, // Assets that have been loaded so far
+    loadedCount:0, // Assetsthat have been loaded so far
     totalCount:0, // Total number of assets that need to be loaded
     
     init:function(){
@@ -239,7 +278,7 @@ var loader = {
         $('#loadingscreen').show();
         var audio = new Audio();
         audio.src = url + loader.soundFileExtn;
-        audio.addEventListener("canplaythrough", loader.itemLoaded, false);
+        audio.addEventListener("canplaytrough", loader.itemLoaded, false);
         return audio;
     },
     itemLoaded:function(){
@@ -263,6 +302,9 @@ var mouse = {
     x:0,
     y:0,
     down:false,
+    downX:0,
+    downY:0,
+    dragging:false,
     init:function(){
         $('#gamecanvas').mousemove(mouse.mousemovehandler);
         $('#gamecanvas').mousedown(mouse.mousedownhandler);
@@ -289,4 +331,13 @@ var mouse = {
         mouse.down = false;
         mouse.dragging = false;
     }
+};
+
+
+var keyboard = {
+    //TODO
+};
+
+var joypad = {
+    //TODO
 };
